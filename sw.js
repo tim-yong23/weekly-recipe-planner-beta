@@ -1,11 +1,11 @@
-// The Home Butler (beta): offline helper (service worker).
+// Emilio (beta): offline helper (service worker).
 //
 // Keeps a copy of the app on the phone so it opens with no signal, and fetches
 // the latest version whenever there is signal, so updates arrive on the next open.
 // It never touches the shopping data itself: that goes to the server, and the page
 // queues changes made offline (see "Offline" in index.html).
 
-const CACHE = "home-butler-beta-v1";
+const CACHE = "emilio-beta-v1";
 const APP_FILES = ["./", "./index.html", "./manifest.json", "./icon-192.png", "./icon-512.png", "./apple-touch-icon.png",
   "./vendor/supabase-2.117.2.js"];
 

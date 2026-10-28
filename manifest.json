@@ -1,6 +1,6 @@
 {
-  "name": "The Home Butler (beta)",
-  "short_name": "Butler Beta",
+  "name": "Emilio (beta)",
+  "short_name": "Emilio Beta",
   "description": "Shared shopping list, meal planner and recipes for the household.",
   "id": "./",
   "start_url": "./",

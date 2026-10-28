@@ -7,9 +7,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Butler Beta">
+<meta name="apple-mobile-web-app-title" content="Emilio Beta">
 <meta name="robots" content="noindex">
-<title>The Home Butler (beta)</title>
+<title>Emilio (beta)</title>
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
@@ -670,7 +670,7 @@
   }
   @keyframes rise { from { opacity: 0; transform: translateY(6px); } }
 
-  /* ---------- The Home Butler look (from the Figma mockup) ---------- */
+  /* ---------- Emilio look (from the Figma mockup) ---------- */
   h1 { font-weight: 800; font-size: 32px; letter-spacing: -0.035em; }
   .top { margin-bottom: 14px; }
   /* Mint count pill */
@@ -1628,7 +1628,7 @@
 <main class="app">
   <div class="install glass" id="installCard" hidden>
     <img src="apple-touch-icon.png" alt="" width="40" height="40">
-    <div class="install-text"><strong>Add Home Butler to your home screen</strong><span id="installText"></span></div>
+    <div class="install-text"><strong>Add Emilio to your home screen</strong><span id="installText"></span></div>
     <button type="button" class="ghost-btn" id="installBtn" hidden>Install</button>
     <button type="button" class="icon-btn" id="installClose" aria-label="Hide this tip">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
@@ -1917,7 +1917,7 @@
       </button>
       <button type="button" class="choice" id="addFile">
         <span class="choice-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="2.5"/><path d="M3.5 9.5h17M3.5 15h17M9.5 4v16"/></svg></span>
-        <span><strong>Import from a spreadsheet</strong><small>Lots of recipes at once, from a CSV file (or a Home Butler backup)</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        <span><strong>Import from a spreadsheet</strong><small>Lots of recipes at once, from a CSV file (or an Emilio backup)</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
       </button>
     </div>
     <button type="button" class="text-btn center-btn" id="importTemplate">Download a spreadsheet template</button>
@@ -2086,7 +2086,7 @@
       <button type="button" class="set-row link danger" id="deleteBtn"><span>Delete account</span></button>
     </div>
     <p class="set-note">Leaving or deleting your account takes you out of the household. If you're the only one in it, its recipes, list and plans are deleted too.</p>
-    <p class="set-note center">The Home Butler · beta</p>
+    <p class="set-note center">Emilio · beta</p>
   </div>
 </div>
 
@@ -2109,7 +2109,7 @@
         <figcaption><h1>All your recipes in one place</h1><p>Paste a link from any recipe site and the ingredients fill themselves in.</p></figcaption>
       </figure>
     </div>
-    <div class="brand"><img src="apple-touch-icon.png" alt="" width="34" height="34"><span>The Home Butler</span></div>
+    <div class="brand"><img src="apple-touch-icon.png" alt="" width="34" height="34"><span>Emilio</span></div>
     <div class="ps-foot">
       <div class="dots" id="dots"><span class="on"></span><span></span><span></span></div>
       <button type="button" class="primary" data-go="account" data-mode="signup">Get started</button>
@@ -5303,7 +5303,7 @@
     const h = account?.household;
     if (!h) return;
     const link = `${location.origin}${location.pathname}#join=${h.invite_code}`;
-    const text = `Join ${h.name} on The Home Butler, so we can share the shopping list and meal plan. Tap ${link} or use code ${h.invite_code} when you sign up.`;
+    const text = `Join ${h.name} on Emilio, so we can share the shopping list and meal plan. Tap ${link} or use code ${h.invite_code} when you sign up.`;
     if (navigator.share) {
       try { await navigator.share({ text }); } catch {}
       return;
@@ -5355,7 +5355,7 @@
       ["Beef stroganoff", "https://www.recipetineats.com/beef-stroganoff/", "", "", "Date night", "", "", ""],
     ];
     const csv = "﻿" + rows.map((r) => r.map(csvCell).join(",")).join("\r\n");
-    saveFile("home-butler-recipe-template.csv", csv, "text/csv");
+    saveFile("emilio-recipe-template.csv", csv, "text/csv");
     toast("Template saved. Fill it in, then come back and import it.");
   });
   const csvCell = (v) => /[",\r\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v;
@@ -5446,7 +5446,7 @@
 
   // A file from "Download all my data": put its recipes back.
   function recipesFromBackup(data) {
-    if (!Array.isArray(data?.recipes)) throw new Error("That file isn't a Home Butler backup or a spreadsheet.");
+    if (!Array.isArray(data?.recipes)) throw new Error("That file isn't an Emilio backup or a spreadsheet.");
     return data.recipes.map((r, i) => ({
       line: i + 1,
       name: String(r.name || "").trim(),
@@ -5620,7 +5620,7 @@
         meals: p.meal_ids.map(recipeName),
       };
       const backup = {
-        app: "The Home Butler",
+        app: "Emilio",
         backup_version: 1,
         exported_at: new Date().toISOString(),
         exported_by: myName || null,
@@ -5645,7 +5645,7 @@
         meal_plans: { this_week: plan(weeks.plan), last_week: plan(weeks.previous) },
       };
       const day = new Date().toLocaleDateString("en-CA"); // 2026-10-23
-      const file = `home-butler-backup-${day}.json`;
+      const file = `emilio-backup-${day}.json`;
       const blob = new Blob([JSON.stringify(backup, null, 2)], { type: "application/json" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
