@@ -295,7 +295,9 @@
     background: var(--surface-strong); border: 1px solid var(--border);
   }
   .recipe-link:active { background: var(--surface-press); }
-  .recipe-link svg { width: 16px; height: 16px; color: var(--accent-ink); }
+  .recipe-link svg { width: 16px; height: 16px; flex: none; color: var(--accent-ink); }
+  .recipe-link { max-width: 100%; }
+  .recipe-link span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
   .dinner-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
   .control-label {
@@ -959,7 +961,7 @@
   .meal .meal-name { font-family: var(--font-ui); font-weight: 600; font-size: 16px; letter-spacing: -0.05em; }
   .meal .meal-meta { margin-top: 4px; font-size: 12px; letter-spacing: -0.05em; color: #B4B4B4; }
   .meal .meal-check { color: var(--warn); }
-  /* "View original": small grey button lined up with the name */
+  /* "From recipetineats.com": small grey button lined up with the name */
   .meal-foot { justify-content: flex-start; padding: 0 30px 16px 85px; margin-top: -6px; }
   .meal-foot .recipe-link {
     position: relative; min-height: 0; height: 30px; padding: 0 12px; border-radius: 10px; gap: 6px;
@@ -2851,6 +2853,11 @@
     } catch { return null; }
   }
 
+  // Credits the website a recipe came from: "https://www.recipetineats.com/…" → "From recipetineats.com"
+  function sourceLabel(href) {
+    return "From " + new URL(href).hostname.replace(/^www\./, "");
+  }
+
   // "4" → "Serves 4", "4 - 5 people" → "Serves 4 - 5 people", "4 servings" stays as it is
   const servingsText = (s) => /^\d/.test(s) && !/serv|make|portion/i.test(s) ? `Serves ${s}` : s;
   // 45 → "45 min", 90 → "1 hr 30 min", 240 → "4 hrs" (the server reads all of these back)
@@ -2924,7 +2931,9 @@
       a.href = href;
       a.target = "_blank";
       a.rel = "noopener noreferrer";
-      a.textContent = "View original";
+      const label = document.createElement("span");
+      label.textContent = sourceLabel(href);
+      a.append(label);
       foot.append(a);
       li.append(foot);
     }
@@ -3664,7 +3673,8 @@
       a.href = href;
       a.target = "_blank";
       a.rel = "noopener noreferrer";
-      a.innerHTML = "View original " + LINK_SVG;
+      a.innerHTML = LINK_SVG;
+      a.prepend(Object.assign(document.createElement("span"), { textContent: sourceLabel(href) }));
       meta.append(a);
     }
 
@@ -3729,7 +3739,7 @@
       const p = document.createElement("li");
       p.className = "rv-empty";
       p.textContent = href
-        ? "No method saved yet. Use View original, or tap Edit to add one."
+        ? `No method saved yet. See the recipe on ${new URL(href).hostname.replace(/^www\./, "")} above, or tap Edit to add one.`
         : "No method saved yet. Tap Edit to add one.";
       $("rvSteps").replaceChildren(p);
     }
